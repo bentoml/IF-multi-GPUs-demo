@@ -1,0 +1,10 @@
+runners:
+  stage1_runner:
+    resources:
+      nvidia.com/gpu: [0]
+  stage2_runner:
+    resources:
+      nvidia.com/gpu: [1]
+  stage3_runner:
+    resources:
+      nvidia.com/gpu: [2]

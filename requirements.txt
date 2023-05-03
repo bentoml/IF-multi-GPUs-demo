@@ -1,0 +1,5 @@
+transformers
+diffusers
+torch>=2.0
+sentencepiece
+accelerate
