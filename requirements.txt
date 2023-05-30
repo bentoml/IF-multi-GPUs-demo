@@ -1,5 +1,8 @@
+bentoml
 transformers
 diffusers
 torch>=2.0
-sentencepiece
 accelerate
+sentencepiece
+triton; sys_platform == "linux"
+gradio==3.20.1
