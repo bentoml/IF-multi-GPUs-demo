@@ -1,4 +1,7 @@
+api_server:
+  timeout: 1800
 runners:
+  timeout: 1500
   stage1_runner:
     resources:
       nvidia.com/gpu: [0]
@@ -7,4 +10,4 @@ runners:
       nvidia.com/gpu: [1]
   stage3_runner:
     resources:
-      nvidia.com/gpu: [2]
+      nvidia.com/gpu: [1]
