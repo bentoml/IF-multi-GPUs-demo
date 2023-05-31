@@ -1,4 +1,5 @@
 import argparse
+import sys
 import bentoml
 from service import svc
 
@@ -23,6 +24,8 @@ if __name__ == "__main__":
                         help="gradio web UI server host (default to 0.0.0.0)")
     parser.add_argument("--gradio-share", type=bool, default=False,
                         help="share your gradio app (default to False)")
+    parser.add_argument("--debug", type=bool, default=False,
+                        help="debug mode with BentoML log output (default to False)")
 
     args = parser.parse_args()
 
@@ -39,9 +42,15 @@ if __name__ == "__main__":
 
     server = bentoml.HTTPServer(svc, port=args.bentoml_port, host=args.bentoml_host)
     server.timeout = 300
-    import sys
+
+    if args.debug:
+        stdout = sys.stdout
+        stderr = sys.stderr
+    else:
+        stdout = None
+        stderr = sys.stderr
     with server.start(env=env_vars, blocking=False,
-                      stdout=sys.stdout, stderr=sys.stderr,):
+                      stdout=stdout, stderr=stderr):
 
         client = server.get_client()
 
