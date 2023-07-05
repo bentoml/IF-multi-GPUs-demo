@@ -1,4 +1,4 @@
-bentoml @ git+https://github.com/bentoml/BentoML@d2fbdab2054aefbd2bda9f81d16dbac730dfd59c
+bentoml[io-image]>=1.0.22
 transformers
 diffusers
 torch>=2.0
