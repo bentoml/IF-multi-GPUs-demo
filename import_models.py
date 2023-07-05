@@ -1,4 +1,5 @@
 import bentoml
+from bentoml.exceptions import NotFound
 import diffusers
 
 if __name__ == "__main__":
@@ -7,10 +8,30 @@ if __name__ == "__main__":
         "encode_prompt": {"batchable": False},
     }
 
-    bentoml.diffusers.import_model(
-        "IF-stage1:v1.0", "DeepFloyd/IF-I-XL-v1.0",
-        signatures=stage1_signatures,
-        variant="fp16",
-        pipeline_class=diffusers.DiffusionPipeline,)
-    #bentoml.diffusers.import_model("IF-stage2:v1.0", "DeepFloyd/IF-II-L-v1.0", variant="fp16", pipeline_class=diffusers.DiffusionPipeline)
-    #bentoml.diffusers.import_model("sd-upscaler", "stabilityai/stable-diffusion-x4-upscaler")
+    stage1_model_tag = "IF-stage1:v1.0"
+    try:
+        bentoml.diffusers.get(stage1_model_tag)
+    except NotFound:
+        bentoml.diffusers.import_model(
+            stage1_model_tag, "DeepFloyd/IF-I-XL-v1.0",
+            signatures=stage1_signatures,
+            variant="fp16",
+            pipeline_class=diffusers.DiffusionPipeline,)
+
+    stage2_model_tag = "IF-stage2:v1.0"
+    try:
+        bentoml.diffusers.get(stage2_model_tag)
+    except NotFound:
+        bentoml.diffusers.import_model(
+            stage2_model_tag, "DeepFloyd/IF-II-L-v1.0",
+            variant="fp16",
+            pipeline_class=diffusers.DiffusionPipeline
+        )
+
+    upscaler_model_name = "sd-upscaler"
+    try:
+        bentoml.diffusers.get(upscaler_model_name)
+    except NotFound:
+        bentoml.diffusers.import_model(
+            upscaler_model_name, "stabilityai/stable-diffusion-x4-upscaler"
+        )
