@@ -34,8 +34,15 @@ To download the IF Models to your local Bento Store:
 python import_models.py
 ```
 
+However, if you have never download models from huggingface via command line, you may need to authorize first using following commands:
+
+```
+pip install -U huggingface_hub
+huggingface-cli login
+```
+
 ### Run the Web Server with Gradio
-Run the server with web UI powered by gradio:
+Run the server locally with web UI powered by gradio:
 
 ```bash
 # For a GPU with more than 40GB VRAM, run all models on the same GPU
